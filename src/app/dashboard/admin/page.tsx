@@ -1,6 +1,7 @@
 import { notFound, redirect } from "next/navigation";
 import Link from "next/link";
 import { AdminRoleForm } from "@/components/admin-role-form";
+import { LedgerForm } from "@/components/ledger-form";
 import { ReviewForm } from "@/components/review-form";
 import { getAdminUsers, getCustomerBalances, getRequests, requireIdentity } from "@/lib/supabase";
 
@@ -38,10 +39,10 @@ export default async function AdminPage() {
       <article className="admin-metric"><span>Recorded customer balances</span><strong>{money(totalRecordedBalance)}</strong><small>{balanceError ? "Balance summary unavailable" : "Calculated from posted ledger entries"}</small></article>
     </div>
 
-    <div className="panel admin-panel"><div className="admin-panel-heading"><div><h3>User access</h3><p>Change a user between customer, staff, and admin roles. Your own role is protected.</p></div><span className="admin-count">{users.length}{users.length === 250 ? "+" : ""} users</span></div>
-      {userError ? <p className="notice error">{userError}</p> : users.length ? <div className="table-wrap"><table className="data-table admin-users-table"><thead><tr><th>User</th><th>Joined</th><th>Role</th><th>Recorded balance</th><th>Ledger entries</th><th>Access controls</th></tr></thead><tbody>{users.map(user=>{
+    <div className="panel admin-panel"><div className="admin-panel-heading"><div><h3>User accounts</h3><p>Manage access and post audited credits or debits to a customer’s recorded balance. Debits cannot exceed the current balance.</p></div><span className="admin-count">{users.length}{users.length === 250 ? "+" : ""} users</span></div>
+      {userError ? <p className="notice error">{userError}</p> : users.length ? <div className="table-wrap"><table className="data-table admin-users-table"><thead><tr><th>User</th><th>Joined</th><th>Role</th><th>Recorded balance</th><th>Ledger entries</th><th>Access controls</th><th>Adjust customer balance</th></tr></thead><tbody>{users.map(user=>{
         const balance = balanceByUser.get(user.id);
-        return <tr key={user.id}><td><strong>{user.full_name || "Unnamed user"}</strong><small>{user.email}</small></td><td>{date(user.created_at)}</td><td><span className={`admin-role-tag role-${user.role}`}>{user.role}</span></td><td>{user.role === "customer" ? (balance ? money(balance.balance_cents) : balanceError ? "Unavailable" : money(0)) : "—"}</td><td>{user.role === "customer" ? (balance?.entry_count ?? (balanceError ? "—" : 0)) : "—"}</td><td><AdminRoleForm userId={user.id} role={user.role} isCurrentUser={user.id === identity.user.id}/></td></tr>;
+        return <tr key={user.id}><td><strong>{user.full_name || "Unnamed user"}</strong><small>{user.email}</small></td><td>{date(user.created_at)}</td><td><span className={`admin-role-tag role-${user.role}`}>{user.role}</span></td><td>{user.role === "customer" ? (balance ? money(balance.balance_cents) : balanceError ? "Unavailable" : money(0)) : "—"}</td><td>{user.role === "customer" ? (balance?.entry_count ?? (balanceError ? "—" : 0)) : "—"}</td><td><AdminRoleForm userId={user.id} role={user.role} isCurrentUser={user.id === identity.user.id}/></td><td>{user.role === "customer" ? <LedgerForm customerId={user.id}/> : "—"}</td></tr>;
       })}</tbody></table></div> : <p>No users found.</p>}
     </div>
 
@@ -54,6 +55,6 @@ export default async function AdminPage() {
         {!(["sent", "rejected"].includes(request.status))&&<ReviewForm requestId={request.id} status={request.status}/>}
       </article>)}</div> : <p>No transfer requests have been submitted.</p>}
     </div>
-    <p className="helper-copy">Grat records transfer requests and staff-entered ledger activity. The portal does not hold funds or execute payments.</p>
+    <p className="helper-copy">Credits and debits update the customer’s recorded Grat balance and create permanent ledger entries. They do not deposit, withdraw, or move real money; confirm any external funds separately before recording them.</p>
   </section>;
 }
