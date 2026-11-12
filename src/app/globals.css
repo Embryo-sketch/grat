@@ -78,14 +78,8 @@ button {
 }
 
 .grat-overview {
-  background: var(--paper);
-  border: 1px solid var(--line);
-  border-radius: var(--r-lg);
-  padding: 26px 28px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 24px;
+  display: block;
+  padding: 26px 28px 0;
 }
 
 .grat-metrics {
@@ -119,32 +113,7 @@ button {
   font-variant-numeric: tabular-nums;
 }
 
-.grat-actions {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 12px;
-  margin: 18px 0;
-}
-
-.grat-action {
-  min-width: 0;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 13px 14px;
-  border: 1px solid var(--line);
-  border-radius: var(--r-md);
-  background: var(--paper);
-  color: var(--ink);
-  text-align: left;
-  font-weight: 500;
-  text-decoration: none;
-}
-
-.grat-action:hover { border-color: var(--line-2); }
-.grat-action.primary { color: white; background: var(--cobalt); border-color: var(--cobalt); }
-.grat-action-icon { width: 38px; height: 38px; flex: none; display: grid; place-items: center; border-radius: 11px; color: var(--link); background: var(--ice); font-size: 20px; }
-.grat-action.primary .grat-action-icon { color: white; background: #ffffff26; }
+.grat-quick { grid-template-columns: repeat(auto-fit, minmax(155px, 1fr)); }
 
 .grat-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); gap: 18px; align-items: start; }
 .grat-panel { min-width: 0; padding: 20px 22px; background: var(--paper); border: 1px solid var(--line); border-radius: var(--r-lg); }
@@ -206,10 +175,43 @@ button {
 .grat-landing-cards { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 16px; margin-top: 28px; }
 .grat-landing-card { padding: 24px; background: white; border: 1px solid var(--line); border-radius: var(--r-lg); }
 
+/* Landing hero: match the prototype's real photo and floating debit-card composition. */
+.hero-visual { min-height: 510px; }
+.hero-photo { isolation: isolate; }
+.hero-photo .hero-woman { object-fit: cover; object-position: 52% center; animation: kenburns 16s ease-in-out 1.3s infinite alternate; }
+.concept-debit-card { position:absolute; z-index:3; top:22px; right:-8px; width:205px; min-height:126px; padding:14px 16px 11px; display:flex; flex-direction:column; justify-content:space-between; border:1px solid #ffffff48; border-radius:15px; color:#fff; background:linear-gradient(135deg,#4967ff 0%,#293fe8 58%,#152a9b 100%); box-shadow:0 22px 46px #0007; transform:rotate(7deg); }
+.concept-card-top,.concept-card-foot { display:flex; align-items:center; justify-content:space-between; }
+.concept-card-top { color:#e7ecff; font-size:9px; letter-spacing:.13em; }
+.concept-card-brand { display:inline-flex; align-items:center; gap:6px; color:#fff; font-size:12px; font-weight:700; letter-spacing:0; }
+.concept-card-brand .grat-brand-mark { width:17px; height:17px; }
+.concept-chip { display:block; width:26px; height:20px; border:1px solid #ffe6a577; border-radius:5px; background:linear-gradient(135deg,#e8d59a,#a79153); }
+.concept-card-number { font-size:11px; letter-spacing:.08em; white-space:nowrap; }
+.concept-card-foot { color:#d5ddff; font-size:7px; letter-spacing:.1em; }
+.concept-card-mark { font-weight:700; font-size:18px; font-style:italic; }
+.hero-visual .grat-landing-preview { position:absolute; z-index:2; left:0; bottom:0; width:min(340px,82%); padding:17px 19px; border-radius:19px; }
+.hero-visual .grat-landing-preview h2 { margin:11px 0 5px; font-size:18px; }
+.hero-visual .grat-landing-preview p { margin:0 0 9px; font-size:12px; }
+.hero-visual .grat-landing-preview .mock-row { font-size:12px; }
+@media (max-width:860px) {
+  .hero-visual { width:min(100%,470px); min-height:460px; }
+  .concept-debit-card { right:2px; width:180px; }
+  .hero-visual .grat-landing-preview { left:4px; bottom:0; }
+}
+@media (max-width:480px) {
+  .hero-visual { min-height:390px; padding:14px 12px 25px; }
+  .hero-photo { border-radius:24px; }
+  .concept-debit-card { top:16px; right:0; width:158px; min-height:105px; padding:11px 12px 9px; }
+  .concept-card-number { font-size:9px; }
+  .hero-visual .grat-landing-preview { width:88%; padding:13px 14px; }
+}
+
 .page-content { display: grid; gap: 18px; }
 .section-heading { display:flex; align-items:flex-end; justify-content:space-between; gap:18px; }
 .section-heading h2 { margin:0; font-size:clamp(26px,3vw,36px); letter-spacing:-.035em; font-weight:600; }
 .section-heading p { margin:5px 0 0; color:var(--muted); }
+.page-intro { align-items:center; }
+.page-intro > div { min-width:0; }
+.page-intro > div > p:last-child { max-width:72ch; margin:5px 0 0; color:var(--muted); }
 .eyebrow { margin:0 0 5px!important; color:#5874ad!important; font-size:11px!important; font-weight:700; letter-spacing:.12em; }
 .panel { min-width:0; padding:22px; background:var(--paper); border:1px solid var(--line); border-radius:var(--r-lg); }
 .panel h3 { margin:0 0 14px; font-size:18px; font-weight:600; }
@@ -235,10 +237,15 @@ button {
 .admin-panel-heading p { margin:5px 0 0; color:var(--muted); font-size:13px; }
 .admin-count { flex:none; padding:5px 10px; border-radius:99px; background:var(--ice); color:var(--muted); font-size:12px; font-weight:600; }
 .admin-panel .table-wrap { margin:0; border:0; border-radius:0; }
-.admin-users-table { min-width:1250px; }
+.admin-users-table { min-width:1050px; }
 .admin-users-table th { white-space:nowrap; }
-.admin-users-table td:last-child { min-width:340px; }
+.admin-users-table td:last-child { min-width:175px; }
 .ledger-form-help { display:block; color:var(--muted); font-size:11px; line-height:1.45; }
+.ledger-disclosure { min-width:170px; }
+.ledger-disclosure > summary { cursor:pointer; list-style:none; }
+.ledger-disclosure > summary::-webkit-details-marker { display:none; }
+.ledger-disclosure[open] > summary { margin-bottom:10px; }
+.ledger-disclosure-body { width:min(340px,70vw); padding:14px; border:1px solid var(--line); border-radius:var(--r-md); background:var(--paper); box-shadow:0 14px 32px var(--shadow); }
 .admin-role-tag { display:inline-flex; padding:4px 9px; border-radius:99px; background:var(--ice); color:var(--ink); font-size:12px; font-weight:600; text-transform:capitalize; }
 .admin-role-tag.role-admin { background:var(--cobalt-soft); color:var(--cobalt-ink); }
 .admin-role-tag.role-staff { background:var(--amber-soft); color:var(--amber-ink); }
@@ -260,12 +267,12 @@ button {
 .request-details { display:flex;flex-wrap:wrap;gap:16px 28px;margin:18px 0 0; }.request-details div { min-width:120px; }.request-details dt { color:var(--muted);font-size:12px; }.request-details dd { margin:2px 0 0;font-weight:500; }
 .status-pill { display:inline-flex;padding:4px 10px;border-radius:99px;background:var(--amber-soft);color:var(--amber-ink);font-size:12px;font-weight:600;text-transform:capitalize; }.status-sent,.status-approved { background:var(--credit-soft);color:var(--credit); }.status-rejected { background:var(--alert-soft);color:var(--alert); }
 .staff-note { margin:14px 0 0;padding:10px 12px;border-radius:var(--r-sm);background:var(--ice);font-size:13px; }
-.profile-panel { display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px; }.profile-panel div { display:grid;gap:4px; }.profile-panel small { color:var(--muted); }.profile-panel strong { font-weight:600;overflow-wrap:anywhere; }
+.profile-panel { display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px; }.profile-panel div { display:grid;gap:6px;padding:18px;border-radius:var(--r-md);background:var(--ice); }.profile-panel small { color:var(--muted);font-size:12px; }.profile-panel strong { font-weight:600;overflow-wrap:anywhere; }
 .notice.error { padding:12px 16px;border-radius:var(--r-md);color:var(--alert);background:var(--alert-soft); }
 
 @media (max-width: 1000px) {
   .grat-main { padding: 18px 24px 52px; }
-  .grat-actions { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .grat-quick { grid-template-columns: repeat(2,minmax(0,1fr)); }
 }
 @media (max-width: 760px) {
   .grat-shell { display: block; padding-bottom: 78px; }
@@ -275,10 +282,11 @@ button {
   .grat-shell .side.admin-side nav { grid-template-columns: repeat(5,minmax(0,1fr)); }
   .grat-shell .side nav .nav-btn { justify-content: center; gap: 4px; padding: 8px 4px; font-size: 11px; }
   .grat-main { padding: 14px 16px 36px; }
-  .grat-overview { display: block; padding: 20px; }
+  .grat-overview { display: block; padding: 20px 20px 0; }
+  .grat-overview .ridge { margin: 12px -20px 0; height: 190px; }
   .grat-metrics { margin-top: 18px; gap: 14px; }
   .grat-metric { min-width: 0; flex: 1; padding-left: 14px; }
-  .grat-actions { grid-template-columns: 1fr 1fr; }
+  .grat-quick { grid-template-columns: 1fr 1fr; }
   .grat-grid { grid-template-columns: 1fr; }
   .grat-auth { grid-template-columns: 1fr; }
   .grat-auth-art { min-height: 390px; padding: 26px 24px; }

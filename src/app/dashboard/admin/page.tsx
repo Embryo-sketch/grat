@@ -31,7 +31,7 @@ export default async function AdminPage() {
   const totalRecordedBalance = balances.reduce((total, item) => total + Number(item.balance_cents), 0);
 
   return <section className="page-content admin-page">
-    <div className="section-heading admin-heading"><div><p className="eyebrow">GRAT OPERATIONS</p><h2>Admin dashboard</h2><p>Manage account access, review transfer requests, and oversee recorded ledger balances.</p></div><Link className="btn" href="/dashboard/accounts">Manage ledger</Link></div>
+    <div className="section-heading page-intro admin-heading"><div><p className="eyebrow">GRAT OPERATIONS</p><p>Manage account access, review transfer requests, and oversee recorded ledger balances.</p></div><Link className="btn" href="/dashboard/accounts">Manage ledger</Link></div>
 
     <div className="admin-metrics" aria-label="Administration summary">
       <article className="admin-metric"><span>Customer accounts</span><strong>{roleCounts.customer}</strong><small>{roleCounts.staff} staff · {roleCounts.admin} admins</small></article>
@@ -40,9 +40,9 @@ export default async function AdminPage() {
     </div>
 
     <div className="panel admin-panel"><div className="admin-panel-heading"><div><h3>User accounts</h3><p>Manage access and post audited credits or debits to a customer’s recorded balance. Debits cannot exceed the current balance.</p></div><span className="admin-count">{users.length}{users.length === 250 ? "+" : ""} users</span></div>
-      {userError ? <p className="notice error">{userError}</p> : users.length ? <div className="table-wrap"><table className="data-table admin-users-table"><thead><tr><th>User</th><th>Joined</th><th>Role</th><th>Recorded balance</th><th>Ledger entries</th><th>Access controls</th><th>Adjust customer balance</th></tr></thead><tbody>{users.map(user=>{
+      {userError ? <p className="notice error">{userError}</p> : users.length ? <div className="table-wrap"><table className="data-table admin-users-table"><thead><tr><th>User</th><th>Joined</th><th>Role</th><th>Recorded balance</th><th>Ledger entries</th><th>Access controls</th><th>Balance adjustment</th></tr></thead><tbody>{users.map(user=>{
         const balance = balanceByUser.get(user.id);
-        return <tr key={user.id}><td><strong>{user.full_name || "Unnamed user"}</strong><small>{user.email}</small></td><td>{date(user.created_at)}</td><td><span className={`admin-role-tag role-${user.role}`}>{user.role}</span></td><td>{user.role === "customer" ? (balance ? money(balance.balance_cents) : balanceError ? "Unavailable" : money(0)) : "—"}</td><td>{user.role === "customer" ? (balance?.entry_count ?? (balanceError ? "—" : 0)) : "—"}</td><td><AdminRoleForm userId={user.id} role={user.role} isCurrentUser={user.id === identity.user.id}/></td><td>{user.role === "customer" ? <LedgerForm customerId={user.id}/> : "—"}</td></tr>;
+        return <tr key={user.id}><td><strong>{user.full_name || "Unnamed user"}</strong><small>{user.email}</small></td><td>{date(user.created_at)}</td><td><span className={`admin-role-tag role-${user.role}`}>{user.role}</span></td><td>{user.role === "customer" ? (balance ? money(balance.balance_cents) : balanceError ? "Unavailable" : money(0)) : "—"}</td><td>{user.role === "customer" ? (balance?.entry_count ?? (balanceError ? "—" : 0)) : "—"}</td><td><AdminRoleForm userId={user.id} role={user.role} isCurrentUser={user.id === identity.user.id}/></td><td>{user.role === "customer" ? <details className="ledger-disclosure"><summary className="btn small">Adjust balance</summary><div className="ledger-disclosure-body"><LedgerForm customerId={user.id}/></div></details> : "—"}</td></tr>;
       })}</tbody></table></div> : <p>No users found.</p>}
     </div>
 
