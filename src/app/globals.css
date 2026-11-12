@@ -116,6 +116,9 @@ button {
 .grat-quick { grid-template-columns: repeat(auto-fit, minmax(155px, 1fr)); }
 
 .grat-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); gap: 18px; align-items: start; }
+.grat-overview > .ridge { height: 230px; min-height: 0; max-height: 230px; }
+.grat-overview > .ridge-empty { display: grid; place-items: center; background:linear-gradient(180deg,transparent 72%,rgba(205,234,242,.4)); }
+.grat-overview > .ridge-empty p { max-width: 54ch; margin:0; padding:0 18px; text-align:center; color:var(--muted); font-size:14px; }
 .grat-panel { min-width: 0; padding: 20px 22px; background: var(--paper); border: 1px solid var(--line); border-radius: var(--r-lg); }
 .grat-panel h2 { margin: 0 0 6px; font-size: 16px; font-weight: 600; }
 .grat-notice { padding: 12px 16px; border-radius: var(--r-md); color: var(--cobalt-ink); background: var(--cobalt-soft); font-size: 13px; line-height: 1.5; }
@@ -133,7 +136,35 @@ button {
 .grat-form input:focus, .grat-form select:focus, .grat-form textarea:focus { outline: 2px solid var(--ring); border-color: var(--cobalt); }
 .grat-form .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .grat-empty { padding: 28px 8px; text-align: center; color: var(--muted); }
+.grat-account-summary { display:flex; align-items:center; gap:12px; padding:14px 0; border-top:1px solid var(--line); }
+.grat-account-summary .grow { flex:1; min-width:0; }
+.grat-account-summary .amt { white-space:nowrap; }
+.grat-account-icon { width:42px; height:42px; display:grid; place-items:center; flex:none; border-radius:50%; color:var(--cobalt); background:var(--cobalt-soft); font-size:20px; }
+.dashboard-request-cta { display:flex; align-items:center; justify-content:center; gap:10px; margin-top:14px; padding:12px; border-radius:var(--r-md); color:white; background:var(--cobalt); text-decoration:none; font-weight:600; }
+.dashboard-request-cta:hover { background:var(--cobalt-ink); }
 .grat-auth { min-height: 100vh; display: grid; grid-template-columns: 1.1fr minmax(380px, 1fr); background: #060b16; }
+.customer-login .login-art { min-width:0; }
+.login-ridge-art { position:absolute; z-index:-1; left:0; right:0; bottom:0; width:100%; height:38%; pointer-events:none; }
+.login-brand-row { display:flex; align-items:center; justify-content:space-between; gap:20px; }
+.login-home { color:#a9b8ce; text-decoration:none; font-size:15px; }
+.login-home:hover { color:#fff; }
+.login-copy { max-width:680px; }
+.login-copy .kicker { margin-bottom:12px; }
+.login-copy h1 { margin:0; max-width:12ch; color:#fff; font-size:clamp(40px,4.6vw,68px); font-weight:300; line-height:1; letter-spacing:-.045em; }
+.login-copy .lead { max-width:46ch; margin:22px 0 0; color:#a9b8ce; font-size:clamp(16px,1.5vw,19px); }
+.login-live-rates { position:relative; z-index:1; }
+.fx-strip-wrap { max-width:720px; }
+.fx-strip { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; }
+.fx-rate { min-width:0; display:flex; align-items:center; gap:9px; padding:10px 12px; border:1px solid rgba(255,255,255,.1); border-radius:15px; color:#d5deec; background:rgba(255,255,255,.07); -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px); white-space:nowrap; }
+.fx-currency { width:34px; height:34px; flex:none; display:grid; place-items:center; border-radius:50%; color:white; background:#2452db; font-weight:600; }
+.fx-gbp { background:#7739df; }
+.fx-jpy { background:#bc2453; }
+.fx-cad { background:#d94343; }
+.fx-pair { font-size:12px; color:#d5deec; }
+.fx-rate strong { font-size:14px; color:white; font-variant-numeric:tabular-nums; }
+.fx-attribution { margin:9px 1px 0; color:#8f9db1; font-size:11px; }
+.fx-attribution a { color:#a9b8ce; text-underline-offset:2px; }
+.login-footnote { margin:0; }
 .grat-auth-art { min-height: 100vh; padding: 36px 52px; display: flex; flex-direction: column; justify-content: space-between; gap: 28px; }
 .grat-auth-art h1 { max-width: 12ch; color: white; font-size: clamp(40px, 5vw, 68px); font-weight: 300; line-height: 1; letter-spacing: -.045em; }
 .grat-auth-form { display: flex; align-items: center; justify-content: center; padding: 32px 24px; }
@@ -142,6 +173,12 @@ button {
 .grat-glass .grat-form label { color: #dbe4f2; }
 .grat-glass .grat-form input { color: white; background: rgba(8,13,24,.7); border-color: #34435b; }
 .grat-glass p { color: #a9b8ce; }
+.customer-login .grat-glass { width:min(480px,100%); padding:32px 30px; border-color:rgba(143,227,245,.13); background:rgba(15,23,40,.88); -webkit-backdrop-filter:blur(20px); backdrop-filter:blur(20px); }
+.customer-login .grat-glass h2 { font-size:30px; letter-spacing:-.03em; }
+.customer-login .grat-glass > .sub { margin:0 0 23px; }
+.customer-login .grat-glass .grat-form { gap:16px; }
+.customer-login .grat-glass .grat-form input { min-height:50px; border-radius:14px; }
+.customer-login .grat-glass .grat-form > .btn { min-height:54px; border-radius:999px; font-size:16px; }
 .admin-login-art { background:#080b16; }
 .admin-login-copy { max-width:560px; }
 .admin-access-mark { display:grid; place-items:center; width:58px; height:58px; margin-bottom:28px; border:1px solid rgba(143,227,245,.35); border-radius:18px; background:linear-gradient(145deg,rgba(77,104,255,.22),rgba(95,182,207,.09)); color:#9fe8f4; font-size:32px; box-shadow:0 14px 42px rgba(77,104,255,.15); }
@@ -284,11 +321,24 @@ button {
   .grat-main { padding: 14px 16px 36px; }
   .grat-overview { display: block; padding: 20px 20px 0; }
   .grat-overview .ridge { margin: 12px -20px 0; height: 190px; }
+  .grat-overview > .ridge { height:190px; max-height:190px; }
   .grat-metrics { margin-top: 18px; gap: 14px; }
   .grat-metric { min-width: 0; flex: 1; padding-left: 14px; }
   .grat-quick { grid-template-columns: 1fr 1fr; }
   .grat-grid { grid-template-columns: 1fr; }
   .grat-auth { grid-template-columns: 1fr; }
+  .customer-login .login-art { min-height:0; padding:24px 22px 14px; gap:22px; }
+  .customer-login .login-brand-row { margin-bottom:26px; }
+  .customer-login .login-copy h1 { font-size:clamp(36px,8vw,52px); }
+  .customer-login .login-copy .lead { margin-top:12px; font-size:15px; }
+  .login-ridge-art { height:62%; }
+  .customer-login .login-footnote { display:none; }
+  .fx-strip { grid-template-columns:repeat(4,max-content); width:max-content; }
+  .fx-strip-wrap { max-width:calc(100vw - 44px); overflow-x:auto; scrollbar-width:none; }
+  .fx-strip-wrap::-webkit-scrollbar { display:none; }
+  .fx-rate { padding:8px 10px; }
+  .fx-currency { width:30px; height:30px; }
+  .fx-attribution { font-size:10px; }
   .grat-auth-art { min-height: 390px; padding: 26px 24px; }
   .admin-login-art { min-height:360px; }
   .admin-login-copy { margin:20px 0; }
@@ -296,6 +346,9 @@ button {
   .admin-login-copy h1 { font-size:clamp(36px,10vw,48px); }
   .admin-login-copy .lead { display:block; margin:12px 0 18px; font-size:14px; }
   .grat-auth-form { padding: 20px 16px; }
+  .customer-login .grat-auth-form { padding:14px 16px 32px; }
+  .customer-login .grat-glass { padding:24px 20px; }
+  .customer-login .grat-glass h2 { font-size:27px; }
   .grat-landing-hero { min-height: 0; padding: 120px 20px 56px; }
   .grat-landing-content { grid-template-columns: 1fr; gap: 36px; }
   .grat-landing-copy h1 { font-size: 54px; }

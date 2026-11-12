@@ -1,7 +1,7 @@
 import type { LedgerEntry } from "@/lib/supabase";
 
 export function BalanceChart({ entries, balanceCents }: { entries: LedgerEntry[]; balanceCents: number }) {
-  if (!entries.length) return <div className="ridge grid place-items-center"><p className="sub">Your balance history will appear after Grat staff records the first ledger entry.</p></div>;
+  if (!entries.length) return <div className="ridge ridge-empty" role="img" aria-label="No balance history yet"><p className="sub">Your balance history will appear after Grat staff records the first ledger entry.</p></div>;
   const ascending = [...entries].reverse();
   const recentNet = ascending.reduce((sum, entry) => sum + (entry.entry_type === "credit" ? 1 : -1) * Number(entry.amount_cents), 0);
   let running = balanceCents - recentNet;
